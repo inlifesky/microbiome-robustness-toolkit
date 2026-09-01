@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Case-study diagnostics | Microbiome robustness toolkit</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="../docs/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Case-study diagnostics | Microbiome robustness
+toolkit</h1>
+</header>
+<h1 id="infant-case-study-diagnostics">Infant case-study
+diagnostics</h1>
+<p>This compact summary shows the diagnostics produced by the included
+public-data example.</p>
+<h2 id="primary-sampling">Primary sampling</h2>
+<ul>
+<li>554 infants: 296 vaginal birth and 258 caesarean birth.</li>
+<li>Samples in the prespecified day-0–7 analysis occurred on day 4 or
+day 7.</li>
+<li>Age-adjusted modelling produced no direction reversals relative to
+the reference analysis; the median absolute change in effect was
+approximately 0.027 CLR units.</li>
+<li>In the day-4-only sensitivity analysis, two features changed
+direction, but neither was FDR-significant.</li>
+</ul>
+<h2 id="preprocessing-sensitivity">Preprocessing sensitivity</h2>
+<ul>
+<li>64 features entered the prevalence-sensitivity evaluation.</li>
+<li>Feature estimability varied across preprocessing
+specifications.</li>
+<li>Two features showed direction instability across the tested
+preprocessing grid.</li>
+<li>Zero-replacement strategy did not reverse feature direction in this
+case study, but it changed some CLR effect magnitudes enough to remain
+an important diagnostic.</li>
+<li>Effect-magnitude ranks were not perfectly fixed across
+specifications; rank stability is therefore reported separately from
+direction stability.</li>
+</ul>
+<h2 id="repeated-observations">Repeated observations</h2>
+<ul>
+<li>Longitudinal input: 1,467 samples from 579 infants.</li>
+<li>492 infants contributed repeated observations.</li>
+<li>All 61 fitted feature-level mixed models converged, were
+non-singular and had no substantive fitting warnings in this case
+study.</li>
+<li>Observed age windows contained 827 samples at day 0–7, 349 at day
+8–30, none at day 31–90 and 291 at day 91+.</li>
+</ul>
+<p>Windowed and mixed-model estimates were compared as separate
+estimands. Direction agreed for 57/61 features around day 4, 59/61
+around day 14 and 50/61 around day 210.</p>
+<h2 id="context-adjustment">Context adjustment</h2>
+<p>For the 41 reported features in the neonatal context analysis, adding
+the available infant antibiotic-use context did not reverse the
+birth-mode coefficient direction. Absolute effect sizes decreased for
+some features and increased for others after adjustment; coefficient
+change is therefore reported directly.</p>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Microbiome robustness toolkit</title>
+<style>
+:root{--ink:#17212b;--muted:#5c6975;--line:#dfe5e8;--panel:#f7f9fa;--accent:#176b74;--accent2:#24556a}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:white}
+main{max-width:1020px;margin:auto;padding:64px 24px 80px}h1{font-size:clamp(2.4rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.04em;margin:.2em 0 .35em;max-width:900px}h2{margin-top:54px;font-size:1.55rem}p{max-width:820px}.lead{font-size:1.18rem;color:var(--muted)}.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--accent)}.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:28px 0}.step{border:1px solid var(--line);padding:10px 14px;border-radius:9px;background:var(--panel)}.arrow{color:#8a979e}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{border:1px solid var(--line);border-radius:12px;padding:20px;background:white}.card strong{font-size:1.55rem;display:block;color:var(--accent2);margin-bottom:4px}.small{font-size:.92rem;color:var(--muted)}a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:3px}.links{display:flex;flex-wrap:wrap;gap:16px;margin-top:30px}.note{margin-top:32px;padding:18px 20px;border-left:4px solid var(--accent);background:var(--panel)}code{background:#f1f4f5;padding:.12em .35em;border-radius:4px}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">R methods library · microbiome analysis</div>
+<h1>Check the stability of a microbiome result before interpreting it.</h1>
+<p class="lead">A reusable workflow for measuring how filtering, zero handling, inference, covariate adjustment and longitudinal modelling affect microbiome results.</p>
+
+<div class="flow" aria-label="workflow">
+<span class="step">feature table</span><span class="arrow">→</span>
+<span class="step">input gate</span><span class="arrow">→</span>
+<span class="step">compositional sensitivity</span><span class="arrow">→</span>
+<span class="step">inference + adjustment</span><span class="arrow">→</span>
+<span class="step">longitudinal diagnostics</span><span class="arrow">→</span>
+<span class="step">follow-up analysis</span>
+</div>
+
+<h2>What the toolkit separates</h2>
+<div class="grid">
+<div class="card"><strong>Data type</strong><span class="small">Genuine counts and relative abundance follow different analysis paths.</span></div>
+<div class="card"><strong>Preprocessing</strong><span class="small">Prevalence and zero handling are evaluated across explicit specifications.</span></div>
+<div class="card"><strong>Inference</strong><span class="small">CLR tests are grouped as checks of inferential sensitivity on a common representation.</span></div>
+<div class="card"><strong>Time</strong><span class="small">Windowed population contrasts and subject-level mixed models remain separate estimands.</span></div>
+</div>
+
+<h2>Public case study</h2>
+<p>The included Baby Biome Study example uses public relative-abundance profiles to demonstrate the diagnostic workflow.</p>
+<div class="grid">
+<div class="card"><strong>554</strong><span class="small">infants in the primary day-0–7 comparison</span></div>
+<div class="card"><strong>64</strong><span class="small">features evaluated across the preprocessing sensitivity grid</span></div>
+<div class="card"><strong>61 / 61</strong><span class="small">feature-level mixed models converged and were non-singular</span></div>
+<div class="card"><strong>50 / 61</strong><span class="small">windowed and mixed-model directions agreed around day 210, illustrating estimand sensitivity</span></div>
+</div>
+<div class="note">Direction, effect magnitude, feature estimability and rank are reported separately because they can show different stability patterns.</div>
+
+<h2>Use it as an analysis gate</h2>
+<p>Run the robustness layer after basic data preparation and before committing to biological mechanisms, prediction models or follow-up validation. It is suitable both for re-analysis of published public datasets and for auditing a new dataset before deeper modelling.</p>
+
+<div class="links">
+<a href="https://inlifesky.github.io/microbiome-robustness-toolkit/README.html?v=docs1">README</a>
+<a href="https://inlifesky.github.io/microbiome-robustness-toolkit/docs/METHODS.html?v=docs1">Methods</a>
+<a href="https://inlifesky.github.io/microbiome-robustness-toolkit/example_outputs/CASE_STUDY_DIAGNOSTICS.html?v=docs1">Case-study diagnostics</a>
+<a href="https://inlifesky.github.io/microbiome-robustness-toolkit/REFERENCES.html?v=docs1">References</a>
+<a href="https://inlifesky.github.io/microbiome-robustness-toolkit/ACKNOWLEDGEMENTS.html?v=docs1">Acknowledgements</a>
+</div>
+</main></body></html>

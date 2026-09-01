@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Microbiome robustness toolkit</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="docs/document.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Microbiome robustness toolkit</h1>
+</header>
+<h1 id="microbiome-robustness-toolkit">Microbiome robustness
+toolkit</h1>
+<p>An R workflow for evaluating how microbiome associations change
+across analytical specifications.</p>
+<p>Microbiome results can vary with data representation, zero handling,
+feature filtering, covariate adjustment, sampling age and
+repeated-measure modelling. The toolkit reports these sources of
+variation separately.</p>
+<p><strong><a
+href="https://inlifesky.github.io/microbiome-robustness-toolkit/">Project
+overview / GitHub Pages</a></strong></p>
+<h2 id="what-it-does">What it does</h2>
+<p>The workflow is organised around six checks:</p>
+<ol type="1">
+<li><strong>Input integrity</strong> — distinguishes genuine sequencing
+counts from relative-abundance tables and checks sample/metadata
+alignment.</li>
+<li><strong>Compositional preprocessing</strong> — CLR transformation
+with explicit zero-replacement choices.</li>
+<li><strong>Inference stability</strong> — complementary tests on the
+same CLR representation, plus optional multivariable modelling.</li>
+<li><strong>Preprocessing stability</strong> — prevalence, zero
+handling, effect direction, effect magnitude and rank stability.</li>
+<li><strong>Longitudinal structure</strong> — separates repeated
+cross-sectional contrasts from subject-level mixed models.</li>
+<li><strong>Context adjustment</strong> — compares the target
+association before and after covariate adjustment without treating
+coefficient change as causal mediation.</li>
+</ol>
+<p><strong>Within-representation inference stability</strong> and
+<strong>cross-algorithm evidence</strong> are reported separately.
+Count-based methods such as ALDEx2 and ANCOM-BC2 are available when
+genuine count data are supplied. Relative-abundance tables remain on the
+compositional analysis path.</p>
+<h2 id="typical-use">Typical use</h2>
+<p>A practical place for this workflow is between data preparation and
+biological interpretation:</p>
+<pre class="text"><code>microbiome feature table
+        ↓
+input / metadata audit
+        ↓
+compositional + preprocessing sensitivity
+        ↓
+inference / covariate / longitudinal checks
+        ↓
+stable, unstable, or analysis-dependent signals
+        ↓
+biological modelling, validation, or follow-up</code></pre>
+<p>The same workflow can be used to re-analyse a published dataset or to
+screen a new dataset before deeper biological modelling.</p>
+<h2 id="included-case-study">Included case study</h2>
+<p><code>case_study/infant_birth_mode/</code> demonstrates the workflow
+with public Baby Biome Study shotgun-metagenomic relative-abundance
+profiles accessed through <code>curatedMetagenomicData</code>.</p>
+<p>The example demonstrates the diagnostic workflow. The primary
+comparison is restricted to day 0–7, with one sample per infant selected
+closest to day 4. Age sensitivity, preprocessing sensitivity, context
+adjustment, windowed contrasts and mixed-model diagnostics are reported
+separately.</p>
+<p>In the case study, the primary analysis includes 554 infants and the
+longitudinal analysis includes 1,467 samples from 579 infants. Effect
+direction is relatively stable for many features, while effect
+magnitude, estimability and rank vary across analytical
+specifications.</p>
+<p>See <a
+href="example_outputs/CASE_STUDY_DIAGNOSTICS.md"><code>example_outputs/CASE_STUDY_DIAGNOSTICS.md</code></a>
+for the compact execution summary.</p>
+<h2 id="run-the-toolkit">Run the toolkit</h2>
+<p>Load the reusable modules:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/00_validate.R&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/01_composition.R&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/02_inference.R&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/03_robustness.R&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/04_longitudinal.R&quot;</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">&quot;R/05_context.R&quot;</span>)</span></code></pre></div>
+<p>Run the included case study from the repository root:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> case_study/infant_birth_mode/run_case_study.R</span></code></pre></div>
+<p>The case study retrieves the public data at runtime. Dataset
+identifiers and data flow are recorded in <a
+href="DATA_MANIFEST.tsv"><code>DATA_MANIFEST.tsv</code></a>. Generated
+outputs are written to <code>results/</code> and <code>figures/</code>,
+and the R environment is captured in
+<code>results/sessionInfo.txt</code>.</p>
+<h2 id="repository-structure">Repository structure</h2>
+<pre class="text"><code>R/                         reusable analysis modules
+case_study/                worked public-data example
+tests/                     input-gate regression tests
+docs/                      methods and data provenance
+example_outputs/           compact case-study diagnostics
+index.html                 lightweight project overview
+DATA_MANIFEST.tsv          external-data contract
+REFERENCES.md              data and software references
+ACKNOWLEDGEMENTS.md         data/software acknowledgements
+THIRD_PARTY_NOTICES.md      third-party software and data license notices
+CITATION.cff               citation metadata</code></pre>
+<h2 id="documentation">Documentation</h2>
+<ul>
+<li><a href="docs/METHODS.md">Methods</a></li>
+<li><a href="docs/DATA_PROVENANCE.md">Data provenance</a></li>
+<li><a href="REFERENCES.md">References</a></li>
+<li><a href="ACKNOWLEDGEMENTS.md">Acknowledgements</a></li>
+<li><a href="THIRD_PARTY_NOTICES.md">Third-party notices</a></li>
+<li><a href="index.html">Project overview</a></li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<p>Core R functions are supplemented, where required, by
+<code>dplyr</code>, <code>tidyr</code>, <code>ggplot2</code>,
+<code>Maaslin2</code>, <code>lme4</code>, <code>zCompositions</code>,
+<code>ALDEx2</code>, <code>ANCOMBC</code>,
+<code>curatedMetagenomicData</code> and
+<code>SummarizedExperiment</code>. Not every package is required for
+every analysis path.</p>
+<p>The included case study has been run successfully on real public
+data. Exact package versions should be recorded from the generated
+<code>sessionInfo.txt</code> when reproducing or adapting the
+workflow.</p>
+<h2 id="license">License</h2>
+<p>MIT. Data remain subject to the terms of their original repositories
+and publications.</p>
+</body>
+</html>

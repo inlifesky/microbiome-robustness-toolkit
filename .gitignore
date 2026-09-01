@@ -1,0 +1,16 @@
+# Generated outputs
+results/*
+!results/.gitkeep
+figures/*
+!figures/.gitkeep
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
